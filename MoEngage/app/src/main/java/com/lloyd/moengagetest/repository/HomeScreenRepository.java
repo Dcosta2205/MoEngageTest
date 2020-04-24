@@ -1,5 +1,11 @@
 package com.lloyd.moengagetest.repository;
 
+import android.content.Context;
+
+import com.lloyd.moengagetest.database.DBManager;
+import com.lloyd.moengagetest.database.FetchArticlesFromDBTask;
+import com.lloyd.moengagetest.database.InsertArticlesToDBTask;
+import com.lloyd.moengagetest.interfaces.DatabaseFetchListener;
 import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.network.FetchArticlesTask;
@@ -7,14 +13,18 @@ import com.lloyd.moengagetest.network.NetworkResponseListener;
 
 import java.util.List;
 
-public class HomeScreenRepository implements NetworkResponseListener {
+public class HomeScreenRepository implements NetworkResponseListener, DatabaseFetchListener {
 
-    public HomeScreenRepository(OnResponseParsedListener listener) {
+    public HomeScreenRepository(OnResponseParsedListener listener, Context context) {
         this.listener = listener;
+        this.context = context;
     }
 
     private FetchArticlesTask fetchArticlesTask;
+    private InsertArticlesToDBTask insertArticlesToDBTask;
+    private FetchArticlesFromDBTask fetchArticlesFromDBTask;
     private OnResponseParsedListener listener;
+    private Context context;
     private JsonResponseParser responseParser = new JsonResponseParser();
 
     public void callGetArticlesApi() {
@@ -22,10 +32,22 @@ public class HomeScreenRepository implements NetworkResponseListener {
         fetchArticlesTask.execute();
     }
 
+    public void insertArticlesIntoDatabase(ArticleItemModel model) {
+        insertArticlesToDBTask = new InsertArticlesToDBTask(DBManager.getInstance(context));
+        insertArticlesToDBTask.execute(model);
+    }
+
+    public void getArticlesFromDB() {
+        fetchArticlesFromDBTask = new FetchArticlesFromDBTask(DBManager.getInstance(context), this);
+        fetchArticlesFromDBTask.execute();
+    }
 
     public void cancelAsyncTask() {
         if (fetchArticlesTask != null) {
             fetchArticlesTask.cancel(true);
+        }
+        if (insertArticlesToDBTask != null) {
+            insertArticlesToDBTask.cancel(true);
         }
     }
 
@@ -39,5 +61,12 @@ public class HomeScreenRepository implements NetworkResponseListener {
     @Override
     public void onFailure(int error) {
 
+    }
+
+    @Override
+    public void onDataFetched(List<ArticleItemModel> list) {
+        if (listener != null) {
+            listener.onDataFetchedFromDB(list);
+        }
     }
 }

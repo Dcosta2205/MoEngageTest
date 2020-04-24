@@ -32,12 +32,11 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
     private DownloadArticleListener downloadArticleListener;
     private TitleClickedListener titleClickedListener;
 
-    public HomeScreenViewHolder(@NonNull View itemView, DownloadArticleListener downloadArticleListener, TitleClickedListener titleClickedListener) {
+    HomeScreenViewHolder(@NonNull View itemView, DownloadArticleListener downloadArticleListener, TitleClickedListener titleClickedListener) {
         super(itemView);
         this.downloadArticleListener = downloadArticleListener;
         this.titleClickedListener = titleClickedListener;
         initViews(itemView);
-
     }
 
     private void initViews(View itemView) {

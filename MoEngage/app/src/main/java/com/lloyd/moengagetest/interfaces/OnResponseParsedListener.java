@@ -7,4 +7,6 @@ import java.util.List;
 public interface OnResponseParsedListener {
 
     void onDataReceived(List<ArticleItemModel> articleList);
+
+    void onDataFetchedFromDB(List<ArticleItemModel> articleItemModelList);
 }

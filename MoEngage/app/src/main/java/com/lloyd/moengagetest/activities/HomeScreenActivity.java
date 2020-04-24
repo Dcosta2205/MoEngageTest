@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +15,9 @@ import com.lloyd.moengagetest.adapter.HomeScreenAdapter;
 import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
 import com.lloyd.moengagetest.interfaces.TitleClickedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
+import com.lloyd.moengagetest.utils.Utils;
 import com.lloyd.moengagetest.viewmodels.HomeScreenViewModel;
+import com.lloyd.moengagetest.viewmodels.HomeViewModelFactory;
 
 public class HomeScreenActivity extends BaseActivity implements DownloadArticleListener, TitleClickedListener {
     private ProgressBar mProgressBar;
@@ -27,9 +28,13 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(HomeScreenViewModel.class);
+        viewModel = new HomeViewModelFactory(getApplicationContext()).create(HomeScreenViewModel.class);
         setRecyclerAdapter();
-        getArticles();
+        if (Utils.isNetworkAvailable(this)) {
+            getArticles();
+        } else {
+            viewModel.getArticlesFromDB();
+        }
         viewModel.liveData.observe(this, articleList -> {
             dismissProgressDialog(mProgressBar);
             homeScreenAdapter.updateData(articleList);
@@ -74,6 +79,7 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
     @Override
     public void onDownloadArticleClicked(int position, ArticleItemModel data) {
         Toast.makeText(this, "On item clicked " + "Position " + position, Toast.LENGTH_SHORT).show();
+        viewModel.insertArticlesIntoDatabase(data);
     }
 
     /*
@@ -81,7 +87,7 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
      */
     @Override
     public void onTitleClicked(int position, ArticleItemModel model) {
-        if(model!=null && model.getUrl()!=null){
+        if (model != null && model.getUrl() != null) {
             String url = model.getUrl();
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

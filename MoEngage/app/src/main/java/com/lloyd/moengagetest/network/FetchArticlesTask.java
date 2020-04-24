@@ -6,7 +6,7 @@ import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.repository.DataMapper;
 import com.lloyd.moengagetest.repository.JsonResponseParser;
-import com.lloyd.moengagetest.utils.Constants;
+import com.lloyd.moengagetest.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
     }
 
     private String openHttpsConnection() {
-        String baseUrl = Constants.BASE_URL;
+        String baseUrl = Utils.BASE_URL;
         String server_response = "";
         URL url;
         HttpURLConnection urlConnection = null;
