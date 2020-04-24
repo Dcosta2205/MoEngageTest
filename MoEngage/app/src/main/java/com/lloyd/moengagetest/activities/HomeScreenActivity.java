@@ -1,17 +1,20 @@
 package com.lloyd.moengagetest.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.adapter.HomeScreenAdapter;
+import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
+import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.viewmodels.HomeScreenViewModel;
 
-public class HomeScreenActivity extends BaseActivity {
+public class HomeScreenActivity extends BaseActivity implements DownloadArticleListener {
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private HomeScreenAdapter homeScreenAdapter;
@@ -21,9 +24,11 @@ public class HomeScreenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(HomeScreenViewModel.class);
+        setRecyclerAdapter();
         getArticles();
-        viewModel.liveData.observe(this, articleResponseModel -> {
-            Log.d("Lloyd" , " on data changed ");
+        viewModel.liveData.observe(this, articleList -> {
+            dismissProgressDialog(mProgressBar);
+            homeScreenAdapter.updateData(articleList);
         });
     }
 
@@ -42,6 +47,13 @@ public class HomeScreenActivity extends BaseActivity {
         mRecyclerView = findViewById(R.id.rv_recyclerview);
     }
 
+    private void setRecyclerAdapter() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        homeScreenAdapter = new HomeScreenAdapter(viewModel.articleItemModelList, this);
+        mRecyclerView.setAdapter(homeScreenAdapter);
+    }
+
     @Override
     public void showProgressDialog(ProgressBar progressBar) {
         super.showProgressDialog(mProgressBar);
@@ -50,5 +62,11 @@ public class HomeScreenActivity extends BaseActivity {
     @Override
     public void dismissProgressDialog(ProgressBar progressBar) {
         super.dismissProgressDialog(mProgressBar);
+    }
+
+    @Override
+    public void onDownloadArticleClicked(int position, ArticleItemModel data) {
+        Toast.makeText(this, "On item clicked " + "Position " + position ,Toast.LENGTH_SHORT).show();
+
     }
 }

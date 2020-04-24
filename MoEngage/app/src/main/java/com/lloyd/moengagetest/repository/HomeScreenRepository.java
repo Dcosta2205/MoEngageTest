@@ -1,11 +1,11 @@
 package com.lloyd.moengagetest.repository;
 
-import android.util.Log;
-
-import com.lloyd.moengagetest.models.ArticleResponseModel;
+import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
+import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.network.FetchArticlesTask;
 import com.lloyd.moengagetest.network.NetworkResponseListener;
-import com.lloyd.moengagetest.network.OnResponseParsedListener;
+
+import java.util.List;
 
 public class HomeScreenRepository implements NetworkResponseListener {
 
@@ -13,7 +13,6 @@ public class HomeScreenRepository implements NetworkResponseListener {
         this.listener = listener;
     }
 
-    private ArticleResponseModel articleResponseModel;
     private FetchArticlesTask fetchArticlesTask;
     private OnResponseParsedListener listener;
     private JsonResponseParser responseParser = new JsonResponseParser();
@@ -23,23 +22,22 @@ public class HomeScreenRepository implements NetworkResponseListener {
         fetchArticlesTask.execute();
     }
 
+
+    public void cancelAsyncTask() {
+        if (fetchArticlesTask != null) {
+            fetchArticlesTask.cancel(true);
+        }
+    }
+
     @Override
-    public void onSuccess(String responseBody) {
-        Log.d("Lloyd ", "thread name " + Thread.currentThread().getName());
-        articleResponseModel = responseParser.getParsedResponse(responseBody);
+    public void onSuccess(List<ArticleItemModel> responseBody) {
         if (listener != null) {
-            listener.onDataReceived(articleResponseModel);
+            listener.onDataReceived(responseBody);
         }
     }
 
     @Override
     public void onFailure(int error) {
 
-    }
-
-    public void cancelAsyncTask() {
-        if (fetchArticlesTask != null) {
-            fetchArticlesTask.cancel(true);
-        }
     }
 }

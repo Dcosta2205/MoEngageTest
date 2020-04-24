@@ -7,31 +7,52 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.lloyd.moengagetest.R;
+import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
+import com.lloyd.moengagetest.models.ArticleItemModel;
 
-public class HomeScreenAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import java.util.List;
+
+public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder> {
+
+    private DownloadArticleListener downloadArticleListener;
+
+    private List<ArticleItemModel> articleList;
+
+    public HomeScreenAdapter(List<ArticleItemModel> articleList, DownloadArticleListener downloadArticleListener) {
+        this.articleList = articleList;
+        this.downloadArticleListener = downloadArticleListener;
+    }
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HomeScreenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_articles_recycler_item, parent, false);
-        return new HomeScreenViewHolder(view);
+        return new HomeScreenViewHolder(view, downloadArticleListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeScreenViewHolder holder, int position) {
+        ArticleItemModel articleItemModel = articleList.get(position);
+        holder.mTvTitle.setText(articleItemModel.getTitle());
+        holder.mTvDescription.setText(articleItemModel.getDescription());
+        holder.mTvContent.setText(articleItemModel.getContent());
+        holder.mTvUpdatedAt.setText(articleItemModel.getPublishedAt());
+        holder.mTvAuthorName.setText(articleItemModel.getAuthor());
+        Glide.with(holder.mIvArticleImg).load(articleItemModel.getUrlToImage()).into(holder.mIvArticleImg);
+        holder.viewSeparator.setVisibility(articleItemModel.isLast());
+        holder.setArticleData(articleItemModel);
+    }
 
+    public void updateData(List<ArticleItemModel> articleList) {
+        this.articleList = articleList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
-    }
-
-
-    class HomeScreenViewHolder extends RecyclerView.ViewHolder {
-
-        public HomeScreenViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
+        return articleList.size();
     }
 }

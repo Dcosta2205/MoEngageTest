@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.lloyd.moengagetest.models.ArticleResponseModel;
-import com.lloyd.moengagetest.network.OnResponseParsedListener;
+import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
+import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.repository.HomeScreenRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeScreenViewModel extends ViewModel implements OnResponseParsedListener {
-    private MutableLiveData<ArticleResponseModel> mutableLiveData = new MutableLiveData<>();
-    public LiveData<ArticleResponseModel> liveData = mutableLiveData;
+    private MutableLiveData<List<ArticleItemModel>> mutableLiveData = new MutableLiveData<>();
+    public LiveData<List<ArticleItemModel>> liveData = mutableLiveData;
     private HomeScreenRepository homeScreenRepository = new HomeScreenRepository(this);
+    public List<ArticleItemModel> articleItemModelList = new ArrayList<>();
 
     public void getArticles() {
         homeScreenRepository.callGetArticlesApi();
@@ -23,8 +27,10 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
         homeScreenRepository.cancelAsyncTask();
     }
 
+
     @Override
-    public void onDataReceived(ArticleResponseModel articleResponseModel) {
-        mutableLiveData.postValue(articleResponseModel);
+    public void onDataReceived(List<ArticleItemModel> articleList) {
+        this.articleItemModelList = articleList;
+        mutableLiveData.setValue(articleItemModelList);
     }
 }
