@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
+import com.lloyd.moengagetest.interfaces.TitleClickedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
 import java.util.List;
@@ -17,12 +18,14 @@ import java.util.List;
 public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder> {
 
     private DownloadArticleListener downloadArticleListener;
-
     private List<ArticleItemModel> articleList;
+        private TitleClickedListener titleClickedListener;
 
-    public HomeScreenAdapter(List<ArticleItemModel> articleList, DownloadArticleListener downloadArticleListener) {
+    public HomeScreenAdapter(List<ArticleItemModel> articleList, DownloadArticleListener downloadArticleListener,
+                             TitleClickedListener titleClickedListener) {
         this.articleList = articleList;
         this.downloadArticleListener = downloadArticleListener;
+        this.titleClickedListener = titleClickedListener;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder
     public HomeScreenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_articles_recycler_item, parent, false);
-        return new HomeScreenViewHolder(view, downloadArticleListener);
+        return new HomeScreenViewHolder(view, downloadArticleListener,titleClickedListener);
     }
 
     @Override

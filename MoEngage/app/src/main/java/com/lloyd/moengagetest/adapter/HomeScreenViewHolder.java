@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
+import com.lloyd.moengagetest.interfaces.TitleClickedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
 public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
@@ -29,10 +30,12 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
     View viewSeparator;
     private ArticleItemModel articleItemModel;
     private DownloadArticleListener downloadArticleListener;
+    private TitleClickedListener titleClickedListener;
 
-    public HomeScreenViewHolder(@NonNull View itemView, DownloadArticleListener downloadArticleListener) {
+    public HomeScreenViewHolder(@NonNull View itemView, DownloadArticleListener downloadArticleListener, TitleClickedListener titleClickedListener) {
         super(itemView);
         this.downloadArticleListener = downloadArticleListener;
+        this.titleClickedListener = titleClickedListener;
         initViews(itemView);
 
     }
@@ -52,9 +55,15 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
+        mTvTitle.setOnClickListener(view -> {
+            if (titleClickedListener != null) {
+                titleClickedListener.onTitleClicked(getAdapterPosition(), articleItemModel);
+            }
+        });
+
     }
 
-    public void setArticleData(ArticleItemModel model) {
+    void setArticleData(ArticleItemModel model) {
         this.articleItemModel = model;
     }
 }
