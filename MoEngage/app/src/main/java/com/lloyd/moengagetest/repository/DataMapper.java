@@ -2,6 +2,7 @@ package com.lloyd.moengagetest.repository;
 
 import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
+import com.lloyd.moengagetest.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class DataMapper {
                 articleItemModel.setContent(articleList.get(i).getContent());
                 articleItemModel.setUrl(articleList.get(i).getUrl());
                 articleItemModel.setUrlToImage(articleList.get(i).getUrlToImage());
-                articleItemModel.setPublishedAt(articleList.get(i).getPublishedAt());
+                articleItemModel.setPublishedAt(Utils.getFormattedDate(articleList.get(i).getPublishedAt()));
                 if (i == articleList.size() - 1) {
                     articleItemModel.setLast(8);
                 } else {

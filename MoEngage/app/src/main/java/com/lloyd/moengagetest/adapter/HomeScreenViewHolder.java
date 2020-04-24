@@ -21,13 +21,12 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
     TextView mTvDescription;
     TextView mTvContent;
     TextView mTvUpdatedAt;
-    ImageView mIvDownloadArticle;
+    TextView mIvDownloadArticle;
     LinearLayout mTitleLayout;
     LinearLayout mAuthorLayout;
     LinearLayout mDescriptionLayout;
     LinearLayout mContentLayout;
     LinearLayout mUpdatedTimeLayout;
-    View viewSeparator;
     private ArticleItemModel articleItemModel;
     private DownloadArticleListener downloadArticleListener;
     private TitleClickedListener titleClickedListener;
@@ -46,7 +45,6 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
         mTvDescription = itemView.findViewById(R.id.tv_description);
         mTvContent = itemView.findViewById(R.id.tv_content);
         mTvUpdatedAt = itemView.findViewById(R.id.tv_updated_time);
-        viewSeparator = itemView.findViewById(R.id.view_separator);
         mIvDownloadArticle = itemView.findViewById(R.id.iv_download_article);
         mIvDownloadArticle.setOnClickListener(view -> {
             if (downloadArticleListener != null) {

@@ -45,7 +45,6 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder
         holder.mTvUpdatedAt.setText(articleItemModel.getPublishedAt());
         holder.mTvAuthorName.setText(articleItemModel.getAuthor());
         Glide.with(holder.mIvArticleImg).load(articleItemModel.getUrlToImage()).into(holder.mIvArticleImg);
-        holder.viewSeparator.setVisibility(articleItemModel.isLast());
         holder.setArticleData(articleItemModel);
     }
 

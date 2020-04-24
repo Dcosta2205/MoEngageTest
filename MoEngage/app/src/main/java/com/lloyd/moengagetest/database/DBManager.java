@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
@@ -47,6 +48,7 @@ public class DBManager {
         contentValue.put(DatabaseHelper.CONTENT, articleItemModel.getContent());
         contentValue.put(DatabaseHelper.PUBLISHED_DATE, articleItemModel.getPublishedAt());
         contentValue.put(DatabaseHelper.IMAGE_URL, articleItemModel.getUrlToImage());
+        Log.d("Lloyd", "content values "+contentValue);
         database.insert(DatabaseHelper.TABLE_NAME, null, contentValue);
     }
 

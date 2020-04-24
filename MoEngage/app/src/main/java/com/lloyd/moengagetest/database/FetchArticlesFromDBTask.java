@@ -35,6 +35,7 @@ public class FetchArticlesFromDBTask extends AsyncTask<Void, Void, List<ArticleI
                 articleItemModel.setUrlToImage(cursor.getString(cursor.getColumnIndex(DatabaseHelper.IMAGE_URL)));
                 articleItemModel.setPublishedAt(cursor.getString(cursor.getColumnIndex(DatabaseHelper.PUBLISHED_DATE)));
                 articleItemModel.setAuthor(cursor.getString(cursor.getColumnIndex(DatabaseHelper.AUTHOR)));
+                articleItemModel.setContent(cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENT)));
                 articleItemModelList.add(articleItemModel);
             }
             while (cursor.moveToNext());
