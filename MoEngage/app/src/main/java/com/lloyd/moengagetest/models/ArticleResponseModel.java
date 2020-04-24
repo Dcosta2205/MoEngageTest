@@ -1,8 +1,11 @@
 package com.lloyd.moengagetest.models;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ArticleResponseModel {
 
@@ -27,6 +30,12 @@ public class ArticleResponseModel {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "status " + status + " List of values " + articles.get(0).getTitle();
     }
 
 }

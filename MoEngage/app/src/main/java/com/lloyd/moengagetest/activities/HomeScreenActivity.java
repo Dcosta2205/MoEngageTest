@@ -1,15 +1,14 @@
 package com.lloyd.moengagetest.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.adapter.HomeScreenAdapter;
-import com.lloyd.moengagetest.models.ArticleResponseModel;
 import com.lloyd.moengagetest.viewmodels.HomeScreenViewModel;
 
 public class HomeScreenActivity extends BaseActivity {
@@ -24,7 +23,7 @@ public class HomeScreenActivity extends BaseActivity {
         viewModel = ViewModelProviders.of(this).get(HomeScreenViewModel.class);
         getArticles();
         viewModel.liveData.observe(this, articleResponseModel -> {
-
+            Log.d("Lloyd" , " on data changed ");
         });
     }
 
