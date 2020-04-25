@@ -15,6 +15,16 @@ public class ArticleItemModel {
 
     private int isLast;
 
+    private long timeStamp;
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
     public int isLast() {
         return isLast;
     }

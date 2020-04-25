@@ -2,6 +2,7 @@ package com.lloyd.moengagetest.application;
 
 import android.app.Application;
 
+import com.google.firebase.FirebaseApp;
 import com.lloyd.moengagetest.database.DBManager;
 
 public class MoEngageApplication extends Application {
@@ -9,5 +10,6 @@ public class MoEngageApplication extends Application {
     public void onCreate() {
         super.onCreate();
         DBManager.getInstance(getApplicationContext()).open();
+        FirebaseApp.initializeApp(this);
     }
 }

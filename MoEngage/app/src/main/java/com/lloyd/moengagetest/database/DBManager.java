@@ -66,5 +66,4 @@ public class DBManager {
     public void delete(long _id) {
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper._ARTICLE_ID + "=" + _id, null);
     }
-
 }

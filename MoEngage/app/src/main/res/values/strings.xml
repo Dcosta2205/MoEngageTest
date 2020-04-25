@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MoEngageTest</string>
+    <string name="new_to_old">New to Old</string>
+    <string name="old_to_new">Old to New</string>
 </resources>

@@ -4,12 +4,18 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.adapter.HomeScreenAdapter;
 import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
@@ -24,6 +30,7 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
     private RecyclerView mRecyclerView;
     private HomeScreenAdapter homeScreenAdapter;
     private HomeScreenViewModel viewModel;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,14 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
     protected void initViewsAndListeners() {
         mProgressBar = findViewById(R.id.progressBar);
         mRecyclerView = findViewById(R.id.rv_recyclerview);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 
     private void setRecyclerAdapter() {
@@ -98,6 +113,21 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
                 i.setPackage(null);
                 startActivity(i);
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_new_to_old:
+                viewModel.sortAscending();
+                return true;
+            case R.id.menu_old_to_new:
+                viewModel.sortDescending();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

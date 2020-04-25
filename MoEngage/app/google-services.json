@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "277959707440",
+    "firebase_url": "https://moengagetest-de6b0.firebaseio.com",
+    "project_id": "moengagetest-de6b0",
+    "storage_bucket": "moengagetest-de6b0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277959707440:android:9e293e232c657668ce56f5",
+        "android_client_info": {
+          "package_name": "com.lloyd.moengagetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "277959707440-h3lldji3vf3h4tgr3b38kmp7bkseoh1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_5F9L5kQqN_-mUFYQ7GFMk2NdEnZ0LRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "277959707440-h3lldji3vf3h4tgr3b38kmp7bkseoh1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

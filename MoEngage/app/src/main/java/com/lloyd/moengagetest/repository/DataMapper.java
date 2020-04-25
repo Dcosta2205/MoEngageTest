@@ -20,10 +20,11 @@ public class DataMapper {
                 articleItemModel.setAuthor(articleList.get(i).getAuthor());
                 articleItemModel.setTitle(articleList.get(i).getTitle());
                 articleItemModel.setDescription(articleList.get(i).getDescription());
-                articleItemModel.setContent(articleList.get(i).getContent());
+                articleItemModel.setContent(articleList.get(i).getContent() == null ? "" : articleList.get(i).getContent());
                 articleItemModel.setUrl(articleList.get(i).getUrl());
                 articleItemModel.setUrlToImage(articleList.get(i).getUrlToImage());
                 articleItemModel.setPublishedAt(Utils.getFormattedDate(articleList.get(i).getPublishedAt()));
+                articleItemModel.setTimeStamp(Utils.getTimeStampFromDate(articleList.get(i).getPublishedAt()));
                 if (i == articleList.size() - 1) {
                     articleItemModel.setLast(8);
                 } else {

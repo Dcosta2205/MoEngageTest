@@ -11,6 +11,8 @@ import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.repository.HomeScreenRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HomeScreenViewModel extends ViewModel implements OnResponseParsedListener {
@@ -25,6 +27,40 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
         this.context = context;
     }
 
+    private Comparator<ArticleItemModel> ascendingComparator = new Comparator<ArticleItemModel>() {
+        @Override
+        public int compare(ArticleItemModel o1, ArticleItemModel o2) {
+            if (o1.getTimeStamp() > o2.getTimeStamp()) {
+                return 1;
+            } else if (o1.getTimeStamp() < o2.getTimeStamp()) {
+                return -1;
+            }
+            return 0;
+        }
+    };
+
+
+    private Comparator<ArticleItemModel> descendingComparator = new Comparator<ArticleItemModel>() {
+        @Override
+        public int compare(ArticleItemModel o1, ArticleItemModel o2) {
+            if (o1.getTimeStamp() < o2.getTimeStamp()) {
+                return 1;
+            } else if (o1.getTimeStamp() > o2.getTimeStamp()) {
+                return -1;
+            }
+            return 0;
+        }
+    };
+
+    public void sortAscending() {
+        Collections.sort(articleItemModelList, ascendingComparator);
+        mutableLiveData.setValue(articleItemModelList);
+    }
+
+    public void sortDescending() {
+        Collections.sort(articleItemModelList, descendingComparator);
+        mutableLiveData.setValue(articleItemModelList);
+    }
 
     public void getArticles() {
         homeScreenRepository.callGetArticlesApi();

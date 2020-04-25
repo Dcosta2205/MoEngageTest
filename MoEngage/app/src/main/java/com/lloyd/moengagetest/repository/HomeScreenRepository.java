@@ -25,7 +25,6 @@ public class HomeScreenRepository implements NetworkResponseListener, DatabaseFe
     private FetchArticlesFromDBTask fetchArticlesFromDBTask;
     private OnResponseParsedListener listener;
     private Context context;
-    private JsonResponseParser responseParser = new JsonResponseParser();
 
     public void callGetArticlesApi() {
         fetchArticlesTask = new FetchArticlesTask(this);
