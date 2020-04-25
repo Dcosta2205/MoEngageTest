@@ -11,6 +11,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to parse the JSON response from the server to the required model class.
+ */
 public final class JsonResponseParser {
 
     private ArticleResponseModel articleResponseModel = new ArticleResponseModel();

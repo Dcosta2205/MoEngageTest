@@ -25,11 +25,6 @@ public class DataMapper {
                 articleItemModel.setUrlToImage(articleList.get(i).getUrlToImage());
                 articleItemModel.setPublishedAt(Utils.getFormattedDate(articleList.get(i).getPublishedAt()));
                 articleItemModel.setTimeStamp(Utils.getTimeStampFromDate(articleList.get(i).getPublishedAt()));
-                if (i == articleList.size() - 1) {
-                    articleItemModel.setLast(8);
-                } else {
-                    articleItemModel.setLast(1);
-                }
                 articleItemModelList.add(articleItemModel);
             }
         }

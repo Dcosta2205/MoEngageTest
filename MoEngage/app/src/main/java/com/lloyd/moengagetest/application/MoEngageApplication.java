@@ -9,7 +9,10 @@ public class MoEngageApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DBManager.getInstance(getApplicationContext()).open();
+        DBManager.getInstance(this);
+        /*
+        Initialize firebase
+         */
         FirebaseApp.initializeApp(this);
     }
 }

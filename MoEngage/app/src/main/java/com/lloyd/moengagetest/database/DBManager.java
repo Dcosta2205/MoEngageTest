@@ -40,6 +40,9 @@ public class DBManager {
         dbHelper.close();
     }
 
+    /**
+     * This method is used to insert data into the database.
+     */
     public void insert(ArticleItemModel articleItemModel) {
         ContentValues contentValue = new ContentValues();
         contentValue.put(DatabaseHelper.TITLE, articleItemModel.getTitle());
@@ -48,22 +51,21 @@ public class DBManager {
         contentValue.put(DatabaseHelper.CONTENT, articleItemModel.getContent());
         contentValue.put(DatabaseHelper.PUBLISHED_DATE, articleItemModel.getPublishedAt());
         contentValue.put(DatabaseHelper.IMAGE_URL, articleItemModel.getUrlToImage());
-        Log.d("Lloyd", "content values "+contentValue);
+        contentValue.put(DatabaseHelper.TIME_STAMP, articleItemModel.getTimeStamp());
         database.insert(DatabaseHelper.TABLE_NAME, null, contentValue);
     }
 
+    /**
+     * This method is used to fetch data from the database.
+     */
     public Cursor fetch() {
         String[] columns = new String[]{DatabaseHelper._ARTICLE_ID, DatabaseHelper.TITLE, DatabaseHelper.DESCRIPTION,
-                DatabaseHelper.AUTHOR, DatabaseHelper.CONTENT, DatabaseHelper.PUBLISHED_DATE, DatabaseHelper.IMAGE_URL};
+                DatabaseHelper.AUTHOR, DatabaseHelper.CONTENT, DatabaseHelper.PUBLISHED_DATE, DatabaseHelper.IMAGE_URL,
+                DatabaseHelper.TIME_STAMP};
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
         }
         return cursor;
-    }
-
-
-    public void delete(long _id) {
-        database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper._ARTICLE_ID + "=" + _id, null);
     }
 }

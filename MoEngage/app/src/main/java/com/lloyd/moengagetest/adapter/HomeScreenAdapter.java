@@ -19,7 +19,7 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder
 
     private DownloadArticleListener downloadArticleListener;
     private List<ArticleItemModel> articleList;
-        private TitleClickedListener titleClickedListener;
+    private TitleClickedListener titleClickedListener;
 
     public HomeScreenAdapter(List<ArticleItemModel> articleList, DownloadArticleListener downloadArticleListener,
                              TitleClickedListener titleClickedListener) {
@@ -33,7 +33,7 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder
     public HomeScreenViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_articles_recycler_item, parent, false);
-        return new HomeScreenViewHolder(view, downloadArticleListener,titleClickedListener);
+        return new HomeScreenViewHolder(view, downloadArticleListener, titleClickedListener);
     }
 
     @Override
@@ -48,6 +48,10 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenViewHolder
         holder.setArticleData(articleItemModel);
     }
 
+    /**
+     * This method is used to notify the adapter that the recycler view data has been changed.
+     * This method is called when liveData observable is called.
+     */
     public void updateData(List<ArticleItemModel> articleList) {
         this.articleList = articleList;
         notifyDataSetChanged();

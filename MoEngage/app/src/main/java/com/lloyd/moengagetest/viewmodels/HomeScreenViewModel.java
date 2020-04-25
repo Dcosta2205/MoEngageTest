@@ -27,37 +27,31 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
         this.context = context;
     }
 
-    private Comparator<ArticleItemModel> ascendingComparator = new Comparator<ArticleItemModel>() {
-        @Override
-        public int compare(ArticleItemModel o1, ArticleItemModel o2) {
-            if (o1.getTimeStamp() > o2.getTimeStamp()) {
-                return 1;
-            } else if (o1.getTimeStamp() < o2.getTimeStamp()) {
-                return -1;
-            }
-            return 0;
+    private Comparator<ArticleItemModel> ascendingComparator = (o1, o2) -> {
+        if (o1.getTimeStamp() > o2.getTimeStamp()) {
+            return 1;
+        } else if (o1.getTimeStamp() < o2.getTimeStamp()) {
+            return -1;
         }
+        return 0;
     };
 
 
-    private Comparator<ArticleItemModel> descendingComparator = new Comparator<ArticleItemModel>() {
-        @Override
-        public int compare(ArticleItemModel o1, ArticleItemModel o2) {
-            if (o1.getTimeStamp() < o2.getTimeStamp()) {
-                return 1;
-            } else if (o1.getTimeStamp() > o2.getTimeStamp()) {
-                return -1;
-            }
-            return 0;
+    private Comparator<ArticleItemModel> descendingComparator = (o1, o2) -> {
+        if (o1.getTimeStamp() < o2.getTimeStamp()) {
+            return 1;
+        } else if (o1.getTimeStamp() > o2.getTimeStamp()) {
+            return -1;
         }
+        return 0;
     };
 
-    public void sortAscending() {
+    public void sortAscendingBasedOnPublishedDate() {
         Collections.sort(articleItemModelList, ascendingComparator);
         mutableLiveData.setValue(articleItemModelList);
     }
 
-    public void sortDescending() {
+    public void sortDescendingBasedOnPublishedDate() {
         Collections.sort(articleItemModelList, descendingComparator);
         mutableLiveData.setValue(articleItemModelList);
     }

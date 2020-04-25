@@ -1,5 +1,8 @@
 package com.lloyd.moengagetest.models;
 
+/**
+ * Model class to handle the displaying of necessary items.
+ */
 public class ArticleItemModel {
     private String author;
 

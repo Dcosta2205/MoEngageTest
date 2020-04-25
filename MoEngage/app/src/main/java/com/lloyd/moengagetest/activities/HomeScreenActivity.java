@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -14,8 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.lloyd.moengagetest.R;
 import com.lloyd.moengagetest.adapter.HomeScreenAdapter;
 import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
@@ -37,6 +34,9 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         super.onCreate(savedInstanceState);
         viewModel = new HomeViewModelFactory(getApplicationContext()).create(HomeScreenViewModel.class);
         setRecyclerAdapter();
+        /*
+        Checks for internet connection , if available data is fetched from Api else its fetched from database.
+         */
         if (Utils.isNetworkAvailable(this)) {
             getArticles();
         } else {
@@ -48,6 +48,9 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         });
     }
 
+    /**
+     * This method makes an call to viewModel to get the articles from the server.
+     */
     private void getArticles() {
         viewModel.getArticles();
     }
@@ -121,10 +124,10 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         int id = item.getItemId();
         switch (id) {
             case R.id.menu_new_to_old:
-                viewModel.sortAscending();
+                viewModel.sortAscendingBasedOnPublishedDate();
                 return true;
             case R.id.menu_old_to_new:
-                viewModel.sortDescending();
+                viewModel.sortDescendingBasedOnPublishedDate();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

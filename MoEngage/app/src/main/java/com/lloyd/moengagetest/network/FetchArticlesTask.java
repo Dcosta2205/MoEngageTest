@@ -17,6 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * Async task to fetch the API response from the server.
+ */
 public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemModel>> {
     private List<Article> articleList;
     private List<ArticleItemModel> articleItemModelList;
@@ -31,11 +34,23 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
     @Override
     protected List<ArticleItemModel> doInBackground(Void... voids) {
         String serverResponse = openHttpsConnection();
+        /*
+        Parses the JSON response into the required model class.
+         */
         articleList = responseParser.getParsedResponse(serverResponse);
+
+        /*
+        Builds the data to display in the UI.
+         */
         articleItemModelList = dataMapper.buildData(articleList);
         return articleItemModelList;
     }
 
+    /**
+     * Fetches the response from the server.
+     *
+     * @return returns a json response in the form of string.
+     */
     private String openHttpsConnection() {
         String baseUrl = Utils.BASE_URL;
         String server_response = "";
@@ -64,11 +79,21 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
     @Override
     protected void onPostExecute(List<ArticleItemModel> list) {
         super.onPostExecute(list);
-        if (listener != null && list!=null) {
+
+        /*
+        Post the data to the repository class to update viewmodel about the changes.
+         */
+        if (listener != null && list != null) {
             listener.onSuccess(list);
         }
     }
 
+    /**
+     * Reads the input stream of data from the server and converts it to string format.
+     *
+     * @param in stream of data
+     * @return returns inputstream in the string format.
+     */
     private String readStream(InputStream in) {
         BufferedReader reader = null;
         StringBuffer response = new StringBuffer();

@@ -13,7 +13,7 @@ import com.lloyd.moengagetest.interfaces.DownloadArticleListener;
 import com.lloyd.moengagetest.interfaces.TitleClickedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
-public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
+class HomeScreenViewHolder extends RecyclerView.ViewHolder {
 
     ImageView mIvArticleImg;
     TextView mTvTitle;
@@ -22,11 +22,6 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
     TextView mTvContent;
     TextView mTvUpdatedAt;
     TextView mIvDownloadArticle;
-    LinearLayout mTitleLayout;
-    LinearLayout mAuthorLayout;
-    LinearLayout mDescriptionLayout;
-    LinearLayout mContentLayout;
-    LinearLayout mUpdatedTimeLayout;
     private ArticleItemModel articleItemModel;
     private DownloadArticleListener downloadArticleListener;
     private TitleClickedListener titleClickedListener;
@@ -57,7 +52,6 @@ public class HomeScreenViewHolder extends RecyclerView.ViewHolder {
                 titleClickedListener.onTitleClicked(getAdapterPosition(), articleItemModel);
             }
         });
-
     }
 
     void setArticleData(ArticleItemModel model) {
