@@ -10,6 +10,7 @@ import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.repository.HomeScreenRepository;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -77,6 +78,14 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
     public void onDataFetchedFromDB(List<ArticleItemModel> articleItemModelList) {
         this.articleItemModelList = articleItemModelList;
         mutableLiveData.setValue(articleItemModelList);
+    }
+
+    @Override
+    public void onError(int responseCode) {
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            articleItemModelList = null;
+            mutableLiveData.setValue(articleItemModelList);
+        }
     }
 
     public void insertArticlesIntoDatabase(ArticleItemModel model) {

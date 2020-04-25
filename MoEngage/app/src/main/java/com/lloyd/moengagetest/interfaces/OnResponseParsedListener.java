@@ -12,4 +12,7 @@ public interface OnResponseParsedListener {
     void onDataReceived(List<ArticleItemModel> articleList);
 
     void onDataFetchedFromDB(List<ArticleItemModel> articleItemModelList);
+
+    void onError(int responseCode);
+
 }

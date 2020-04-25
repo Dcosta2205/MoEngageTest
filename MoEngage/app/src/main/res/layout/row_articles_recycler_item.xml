@@ -7,7 +7,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_8"
         android:layout_marginBottom="@dimen/dp_14">
 
         <LinearLayout
@@ -19,8 +18,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_article"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
-                android:layout_margin="@dimen/dp_25">
+                android:layout_height="@dimen/dp_200">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -48,6 +46,7 @@
 
                 <TextView
                     android:id="@+id/tv_article_title"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -153,9 +152,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:background="@drawable/button_bg"
-                    android:padding="@dimen/dp_8"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_10"
                     android:text="Save"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -65,6 +65,8 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
 
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     server_response = readStream(urlConnection.getInputStream());
+                } else {
+                    listener.onFailure(responseCode);
                 }
 
             } catch (MalformedURLException e) {
@@ -92,7 +94,7 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
      * Reads the input stream of data from the server and converts it to string format.
      *
      * @param in stream of data
-     * @return returns inputstream in the string format.
+     * @return returns input stream in the string format.
      */
     private String readStream(InputStream in) {
         BufferedReader reader = null;

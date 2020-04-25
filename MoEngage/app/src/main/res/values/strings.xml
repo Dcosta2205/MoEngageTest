@@ -2,4 +2,6 @@
     <string name="app_name">MoEngageTest</string>
     <string name="new_to_old">New to Old</string>
     <string name="old_to_new">Old to New</string>
+    <string name="no_aticles_found_text">No articles found</string>
+    <string name="something_went_wrong_text">Something went wrong, Please restart your App</string>
 </resources>

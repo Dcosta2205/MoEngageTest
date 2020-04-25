@@ -16,15 +16,16 @@ public class DataMapper {
         List<ArticleItemModel> articleItemModelList = new ArrayList<>();
         if (articleList != null) {
             for (int i = 0; i < articleList.size(); i++) {
+                Article article = articleList.get(i);
                 ArticleItemModel articleItemModel = new ArticleItemModel();
-                articleItemModel.setAuthor(articleList.get(i).getAuthor());
-                articleItemModel.setTitle(articleList.get(i).getTitle());
-                articleItemModel.setDescription(articleList.get(i).getDescription());
-                articleItemModel.setContent(articleList.get(i).getContent() == null ? "" : articleList.get(i).getContent());
-                articleItemModel.setUrl(articleList.get(i).getUrl());
-                articleItemModel.setUrlToImage(articleList.get(i).getUrlToImage());
-                articleItemModel.setPublishedAt(Utils.getFormattedDate(articleList.get(i).getPublishedAt()));
-                articleItemModel.setTimeStamp(Utils.getTimeStampFromDate(articleList.get(i).getPublishedAt()));
+                articleItemModel.setAuthor(article.getAuthor());
+                articleItemModel.setTitle(article.getTitle());
+                articleItemModel.setDescription(article.getDescription());
+                articleItemModel.setContent(article.getContent() == null ? "" : article.getContent());
+                articleItemModel.setUrl(article.getUrl());
+                articleItemModel.setUrlToImage(article.getUrlToImage());
+                articleItemModel.setPublishedAt(Utils.getFormattedDate(article.getPublishedAt()));
+                articleItemModel.setTimeStamp(Utils.getTimeStampFromDate(article.getPublishedAt()));
                 articleItemModelList.add(articleItemModel);
             }
         }

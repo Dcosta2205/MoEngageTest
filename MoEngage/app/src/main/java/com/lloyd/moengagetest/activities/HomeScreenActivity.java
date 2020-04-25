@@ -6,7 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
@@ -22,12 +25,16 @@ import com.lloyd.moengagetest.utils.Utils;
 import com.lloyd.moengagetest.viewmodels.HomeScreenViewModel;
 import com.lloyd.moengagetest.viewmodels.HomeViewModelFactory;
 
+import java.util.List;
+
 public class HomeScreenActivity extends BaseActivity implements DownloadArticleListener, TitleClickedListener {
     private ProgressBar mProgressBar;
     private RecyclerView mRecyclerView;
     private HomeScreenAdapter homeScreenAdapter;
     private HomeScreenViewModel viewModel;
     private Toolbar mToolbar;
+    private LinearLayout mErrorLayout;
+    private TextView mTvErrorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +51,36 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         }
         viewModel.liveData.observe(this, articleList -> {
             dismissProgressDialog(mProgressBar);
-            homeScreenAdapter.updateData(articleList);
+            handleResponseUI(articleList);
         });
+    }
+
+    private void handleResponseUI(List<ArticleItemModel> articleList) {
+        /*
+        articleList is null if the Api throws an error. or else it can never be null
+         */
+        if (articleList == null) {
+            showErrorLayout(true);
+            return;
+        }
+
+        /*
+        Notify recyclerview adapter about the change in articleList
+         */
+        homeScreenAdapter.updateData(articleList);
+        /*
+        articleList size is 0 , then there are no articles
+         */
+        if (articleList.size() == 0) {
+            showErrorLayout(false);
+        } else {
+            showRecyclerViewItems();
+        }
+    }
+
+    private void showRecyclerViewItems() {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mErrorLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -66,6 +101,8 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         mRecyclerView = findViewById(R.id.rv_recyclerview);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        mErrorLayout = findViewById(R.id.ll_error);
+        mTvErrorMessage = findViewById(R.id.tv_something_went_wrong);
     }
 
     @Override
@@ -96,7 +133,7 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
      */
     @Override
     public void onDownloadArticleClicked(int position, ArticleItemModel data) {
-        Toast.makeText(this, "On item clicked " + "Position " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Article saved to database", Toast.LENGTH_SHORT).show();
         viewModel.insertArticlesIntoDatabase(data);
     }
 
@@ -131,6 +168,21 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * This method is used to show the error screen if API throws an error and if the database is empty.
+     *
+     * @param isError
+     */
+    public void showErrorLayout(boolean isError) {
+        mRecyclerView.setVisibility(View.GONE);
+        mErrorLayout.setVisibility(View.VISIBLE);
+        if (isError) {
+            mTvErrorMessage.setText(R.string.something_went_wrong_text);
+        } else {
+            mTvErrorMessage.setText(R.string.no_aticles_found_text);
         }
     }
 }

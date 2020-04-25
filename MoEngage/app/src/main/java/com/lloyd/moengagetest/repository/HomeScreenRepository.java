@@ -59,7 +59,9 @@ public class HomeScreenRepository implements NetworkResponseListener, DatabaseFe
 
     @Override
     public void onFailure(int error) {
-
+        if (listener != null) {
+            listener.onError(error);
+        }
     }
 
     @Override
