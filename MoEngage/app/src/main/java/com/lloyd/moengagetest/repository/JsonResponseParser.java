@@ -3,6 +3,7 @@ package com.lloyd.moengagetest.repository;
 import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleResponseModel;
 import com.lloyd.moengagetest.models.Source;
+import com.lloyd.moengagetest.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,25 +24,25 @@ public final class JsonResponseParser {
 
         try {
             JSONObject jsonObject = new JSONObject(responseBody);
-            if (jsonObject.optString("status").equalsIgnoreCase("ok")) {
-                articleResponseModel.setStatus(jsonObject.optString("status"));
+            if (jsonObject.optString(Constants.STATUS).equalsIgnoreCase("ok")) {
+                articleResponseModel.setStatus(jsonObject.optString(Constants.STATUS));
             }
-            String articles = jsonObject.optString("articles");
+            String articles = jsonObject.optString(Constants.ARTICLES_KEY);
             JSONArray jsonArray = new JSONArray(articles);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonArticle = jsonArray.getJSONObject(i);
                 Source source = new Source();
-                JSONObject sourceJson = jsonArticle.getJSONObject("source");
-                source.setId(sourceJson.optString("id"));
-                source.setName(sourceJson.optString("name"));
+                JSONObject sourceJson = jsonArticle.getJSONObject(Constants.SOURCE_KEY);
+                source.setId(sourceJson.optString(Constants.ID));
+                source.setName(sourceJson.optString(Constants.NAME));
                 Article article = new Article();
-                article.setAuthor(jsonArticle.optString("author"));
-                article.setTitle(jsonArticle.optString("title"));
-                article.setContent(jsonArticle.optString("content"));
-                article.setDescription(jsonArticle.optString("description"));
-                article.setUrl(jsonArticle.optString("url"));
-                article.setUrlToImage(jsonArticle.optString("urlToImage"));
-                article.setPublishedAt(jsonArticle.optString("publishedAt"));
+                article.setAuthor(jsonArticle.optString(Constants.AUTHOR));
+                article.setTitle(jsonArticle.optString(Constants.TITLE));
+                article.setContent(jsonArticle.optString(Constants.CONTENT));
+                article.setDescription(jsonArticle.optString(Constants.DESCRIPTION));
+                article.setUrl(jsonArticle.optString(Constants.URL));
+                article.setUrlToImage(jsonArticle.optString(Constants.URL_TO_IMAGE));
+                article.setPublishedAt(jsonArticle.optString(Constants.PUBLISHED_AT));
                 article.setSource(source);
                 articleList.add(article);
             }

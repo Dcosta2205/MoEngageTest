@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public final class Utils {
-    public static final String BASE_URL = "https://candidate-test-data-moengage.s3.amazonaws.com/Android/news-api-feed/staticResponse.json";
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager

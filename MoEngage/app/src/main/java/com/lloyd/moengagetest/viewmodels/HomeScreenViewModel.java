@@ -84,7 +84,10 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
     public void onError(int responseCode) {
         if (responseCode != HttpURLConnection.HTTP_OK) {
             articleItemModelList = null;
-            mutableLiveData.setValue(articleItemModelList);
+            /*
+            Here live data post value is used because on error is called directly from background thread i.e from doInBackground method
+             */
+            mutableLiveData.postValue(articleItemModelList);
         }
     }
 

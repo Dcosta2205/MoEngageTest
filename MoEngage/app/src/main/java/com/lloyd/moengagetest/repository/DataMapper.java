@@ -18,12 +18,12 @@ public class DataMapper {
             for (int i = 0; i < articleList.size(); i++) {
                 Article article = articleList.get(i);
                 ArticleItemModel articleItemModel = new ArticleItemModel();
-                articleItemModel.setAuthor(article.getAuthor());
-                articleItemModel.setTitle(article.getTitle());
-                articleItemModel.setDescription(article.getDescription());
-                articleItemModel.setContent(article.getContent() == null ? "" : article.getContent());
-                articleItemModel.setUrl(article.getUrl());
-                articleItemModel.setUrlToImage(article.getUrlToImage());
+                articleItemModel.setAuthor(article.getAuthor().equals("null") ? " " : article.getAuthor());
+                articleItemModel.setTitle(article.getTitle().equals("null") ? " " : article.getTitle());
+                articleItemModel.setDescription(article.getDescription().equals("null") ? " " : article.getDescription());
+                articleItemModel.setContent(article.getContent().equals("null") ? " " : article.getContent());
+                articleItemModel.setUrl(article.getUrl().equals("null") ? "" : article.getUrl());
+                articleItemModel.setUrlToImage(article.getUrlToImage().equals("null") ? " " : article.getUrlToImage());
                 articleItemModel.setPublishedAt(Utils.getFormattedDate(article.getPublishedAt()));
                 articleItemModel.setTimeStamp(Utils.getTimeStampFromDate(article.getPublishedAt()));
                 articleItemModelList.add(articleItemModel);
