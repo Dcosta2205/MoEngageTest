@@ -4,6 +4,7 @@ import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleResponseModel;
 import com.lloyd.moengagetest.models.Source;
 import com.lloyd.moengagetest.utils.Constants;
+import com.lloyd.moengagetest.utils.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +37,7 @@ public final class JsonResponseParser {
                 source.setId(sourceJson.optString(Constants.ID));
                 source.setName(sourceJson.optString(Constants.NAME));
                 Article article = new Article();
+                article.setId(Utils.generateUIID());
                 article.setAuthor(jsonArticle.optString(Constants.AUTHOR));
                 article.setTitle(jsonArticle.optString(Constants.TITLE));
                 article.setContent(jsonArticle.optString(Constants.CONTENT));

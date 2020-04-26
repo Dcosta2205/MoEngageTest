@@ -1,94 +1,157 @@
 package com.lloyd.moengagetest.models;
 
+import android.text.Spannable;
+
 public class ArticleItemModel {
-    private String author;
+    private Spannable author;
 
-    private String title;
+    private Spannable title;
 
-    private String description;
+    private Spannable description;
 
     private String url;
 
     private String urlToImage;
 
-    private String publishedAt;
+    private Spannable publishedAt;
 
-    private int isLast;
 
     private long timeStamp;
+
+    private String id;
+
+    private Spannable content;
+
+
+    public ArticleItemModel(ArticleItemModelBuilder articleItemModelBuilder) {
+        this.author = articleItemModelBuilder.author;
+        this.title = articleItemModelBuilder.title;
+        this.description = articleItemModelBuilder.description;
+        this.url = articleItemModelBuilder.url;
+        this.urlToImage = articleItemModelBuilder.urlToImage;
+        this.publishedAt = articleItemModelBuilder.publishedAt;
+        this.timeStamp = articleItemModelBuilder.timeStamp;
+        this.id = articleItemModelBuilder.id;
+        this.content = articleItemModelBuilder.content;
+    }
+
+    public String getId() {
+        return id;
+    }
+
 
     public long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
-    }
 
-    public int isLast() {
-        return isLast;
-    }
-
-    public void setLast(int last) {
-        isLast = last;
-    }
-
-    public String getAuthor() {
+    public Spannable getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 
-    public String getTitle() {
+    public Spannable getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public String getDescription() {
+    public Spannable getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getUrlToImage() {
         return urlToImage;
     }
 
-    public void setUrlToImage(String urlToImage) {
-        this.urlToImage = urlToImage;
-    }
 
-    public String getPublishedAt() {
+    public Spannable getPublishedAt() {
         return publishedAt;
     }
 
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
 
-    public String getContent() {
+    public Spannable getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
 
-    private String content;
+   public static class ArticleItemModelBuilder {
+        private Spannable author;
+
+        private Spannable title;
+
+        private Spannable description;
+
+        private String url;
+
+        private String urlToImage;
+
+        private Spannable publishedAt;
+
+
+        private long timeStamp;
+
+        private String id;
+
+        private Spannable content;
+
+
+        public ArticleItemModelBuilder setAuthor(Spannable author) {
+            this.author = author;
+            return this;
+        }
+
+        public ArticleItemModelBuilder setTitle(Spannable title) {
+            this.title = title;
+            return this;
+        }
+
+        public ArticleItemModelBuilder setDescription(Spannable description) {
+            this.description = description;
+            return this;
+        }
+
+
+        public ArticleItemModelBuilder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+
+        public ArticleItemModelBuilder setUrlToImage(String urlToImage) {
+            this.urlToImage = urlToImage;
+            return this;
+        }
+
+        public ArticleItemModelBuilder setPublishedAt(Spannable publishedAt) {
+            this.publishedAt = publishedAt;
+            return this;
+        }
+
+        public ArticleItemModelBuilder setTimeStamp(long timeStamp) {
+            this.timeStamp = timeStamp;
+            return this;
+        }
+
+        public ArticleItemModelBuilder setId(String id) {
+            this.id = id;
+            return this;
+        }
+
+
+        public ArticleItemModelBuilder setContent(Spannable content) {
+            this.content = content;
+            return this;
+        }
+
+        public ArticleItemModel build() {
+            return new ArticleItemModel(this);
+        }
+    }
 
 }

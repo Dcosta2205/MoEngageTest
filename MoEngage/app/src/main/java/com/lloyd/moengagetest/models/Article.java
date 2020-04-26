@@ -30,6 +30,16 @@ public class Article {
     @Expose
     private String content;
 
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     public Source getSource() {
         return source;
     }

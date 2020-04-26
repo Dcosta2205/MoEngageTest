@@ -1,5 +1,6 @@
 package com.lloyd.moengagetest.interfaces;
 
+import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.List;
  */
 public interface OnResponseParsedListener {
 
-    void onDataReceived(List<ArticleItemModel> articleList);
+    void onDataReceived(List<ArticleItemModel> articleItemModelList , List<Article> articleList);
 
-    void onDataFetchedFromDB(List<ArticleItemModel> articleItemModelList);
+    void onDataFetchedFromDB(List<Article> articleList);
 
     void onError(int responseCode);
 

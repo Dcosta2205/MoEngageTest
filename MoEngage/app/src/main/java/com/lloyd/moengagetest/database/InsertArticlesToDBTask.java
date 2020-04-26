@@ -2,12 +2,13 @@ package com.lloyd.moengagetest.database;
 
 import android.os.AsyncTask;
 
+import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 
 /**
  * This class inserts all the articles into the database.
  */
-public class InsertArticlesToDBTask extends AsyncTask<ArticleItemModel, Void, Void> {
+public class InsertArticlesToDBTask extends AsyncTask<Article, Void, Void> {
 
     private DBManager dbManager;
 
@@ -16,7 +17,7 @@ public class InsertArticlesToDBTask extends AsyncTask<ArticleItemModel, Void, Vo
     }
 
     @Override
-    protected Void doInBackground(ArticleItemModel... articleItemModels) {
+    protected Void doInBackground(Article... articleItemModels) {
         insertIntoDatabase(articleItemModels);
         return null;
     }
@@ -24,13 +25,13 @@ public class InsertArticlesToDBTask extends AsyncTask<ArticleItemModel, Void, Vo
     /**
      * This method performs the task of inserting the articles into the database.
      *
-     * @param articleItemModels data to be inserted into the database.
+     * @param articles data to be inserted into the database.
      */
-    private void insertIntoDatabase(ArticleItemModel[] articleItemModels) {
+    private void insertIntoDatabase(Article[] articles) {
         dbManager.open();
         try {
             if (!isCancelled()) {
-                for (ArticleItemModel articleItemModel : articleItemModels) {
+                for (Article articleItemModel : articles) {
                     dbManager.insert(articleItemModel);
                 }
             }

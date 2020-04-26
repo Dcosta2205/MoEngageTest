@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#a4a4a5">
+    android:background="#000000">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ededed"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -42,109 +42,51 @@
                 android:layout_marginStart="@dimen/dp_25"
                 android:layout_marginEnd="@dimen/dp_25"
                 android:layout_marginBottom="@dimen/dp_16"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_article_title"
-                    android:layout_marginTop="@dimen/dp_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:id="@+id/ll_author"
+
+                <TextView
+                    android:id="@+id/tv_author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textColor="@color/colorGrey"
+                    android:textStyle="italic" />
+
+
+                <TextView
+                    android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:orientation="horizontal">
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Written by  "
-                        android:textColor="@android:color/black"
-                        android:textStyle="italic" />
 
-                    <TextView
-                        android:id="@+id/tv_author_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorGrey"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_article_description"
+                <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Description:"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:text="Hello and welcome back to our regular morning look at private companies, public markets and the gray space in between. Today we’re exploring some fascinating data from Silicon Valley Bank markets report for Q1 2020. We’re digging into two charts that deal wit…"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_content"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_updated_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Content:"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:text="Hello and welcome back to our regular morning look at private companies, public markets and the gray space in between. Today we’re exploring some fascinating data from Silicon Valley Bank markets report for Q1 2020. We’re digging into two charts that deal wit…"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_published"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Updated on "
-                        android:textColor="@android:color/black"
-                        android:textStyle="italic" />
-
-                    <TextView
-                        android:id="@+id/tv_updated_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" May 22 1995"
-                        android:textColor="@color/colorGrey"
-                        android:textStyle="italic" />
-                </LinearLayout>
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:textColor="@color/colorGrey"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/iv_download_article"

@@ -13,6 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:theme="@style/ToolBarStyle"
+        app:popupTheme="@style/PopupMenuStyle"
         app:menu="@menu/toolbar_menu" />
 
     <RelativeLayout

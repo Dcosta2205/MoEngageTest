@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String IMAGE_URL = "string";
     public static final String CONTENT = "content";
     public static final String PUBLISHED_DATE = "published_date";
-    public static final String TIME_STAMP = "time_stamp";
+    public static final String UNIQUE_ID = "unique_id";
 
     // Database Information
     static final String DB_NAME = "MOENGAGE_ARTICLES.DB";
@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ARTICLE_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE + " TEXT , " + DESCRIPTION + " TEXT ,"
             + AUTHOR + " TEXT , " + IMAGE_URL + " TEXT ," + CONTENT + " TEXT , " +
-            PUBLISHED_DATE + " TEXT ," + TIME_STAMP + " INTEGER) ;";
+            PUBLISHED_DATE + " TEXT ," + DatabaseHelper.UNIQUE_ID + " TEXT) ;";
 
 
     @Override

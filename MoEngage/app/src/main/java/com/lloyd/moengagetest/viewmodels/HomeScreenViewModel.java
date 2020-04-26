@@ -7,10 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
+import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
+import com.lloyd.moengagetest.repository.DataMapper;
 import com.lloyd.moengagetest.repository.HomeScreenRepository;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,11 +22,13 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
     private Context context;
     private MutableLiveData<List<ArticleItemModel>> mutableLiveData = new MutableLiveData<>();
     public LiveData<List<ArticleItemModel>> liveData = mutableLiveData;
-    private HomeScreenRepository homeScreenRepository = new HomeScreenRepository(this, context);
+    private List<Article> articleList;
+    private HomeScreenRepository homeScreenRepository;
     public List<ArticleItemModel> articleItemModelList = new ArrayList<>();
 
     public HomeScreenViewModel(Context context) {
         this.context = context;
+        homeScreenRepository = new HomeScreenRepository(this, context);
     }
 
     private Comparator<ArticleItemModel> ascendingComparator = (o1, o2) -> {
@@ -69,30 +72,42 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
 
 
     @Override
-    public void onDataReceived(List<ArticleItemModel> articleList) {
-        this.articleItemModelList = articleList;
+    public void onDataReceived(List<ArticleItemModel> articleItemModelList, List<Article> articleList) {
+        this.articleItemModelList = articleItemModelList;
+        this.articleList = articleList;
         mutableLiveData.setValue(articleItemModelList);
     }
 
     @Override
-    public void onDataFetchedFromDB(List<ArticleItemModel> articleItemModelList) {
-        this.articleItemModelList = articleItemModelList;
+    public void onDataFetchedFromDB(List<Article> articleList) {
+        this.articleList = articleList;
+        this.articleItemModelList = new DataMapper(context).buildData(articleList);
         mutableLiveData.setValue(articleItemModelList);
     }
 
     @Override
     public void onError(int responseCode) {
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            articleItemModelList = null;
+        articleItemModelList = null;
             /*
             Here live data post value is used because on error is called directly from background thread i.e from doInBackground method
              */
-            mutableLiveData.postValue(articleItemModelList);
-        }
+        mutableLiveData.postValue(articleItemModelList);
     }
 
     public void insertArticlesIntoDatabase(ArticleItemModel model) {
-        homeScreenRepository.insertArticlesIntoDatabase(model);
+        /*
+         we need to insert the entire response fetched from server.
+         */
+        Article foundArticle = null;
+        for (Article article : articleList) {
+            if (model.getId().equals(article.getId())) {
+                foundArticle = article;
+                break;
+            }
+        }
+        if (foundArticle != null) {
+            homeScreenRepository.insertArticlesIntoDatabase(foundArticle);
+        }
     }
 
     public void getArticlesFromDB() {

@@ -5,9 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.lloyd.moengagetest.models.ArticleItemModel;
+import com.lloyd.moengagetest.models.Article;
 
 public class DBManager {
 
@@ -43,15 +42,15 @@ public class DBManager {
     /**
      * This method is used to insert data into the database.
      */
-    public void insert(ArticleItemModel articleItemModel) {
+    public void insert(Article article) {
         ContentValues contentValue = new ContentValues();
-        contentValue.put(DatabaseHelper.TITLE, articleItemModel.getTitle());
-        contentValue.put(DatabaseHelper.DESCRIPTION, articleItemModel.getDescription());
-        contentValue.put(DatabaseHelper.AUTHOR, articleItemModel.getAuthor());
-        contentValue.put(DatabaseHelper.CONTENT, articleItemModel.getContent());
-        contentValue.put(DatabaseHelper.PUBLISHED_DATE, articleItemModel.getPublishedAt());
-        contentValue.put(DatabaseHelper.IMAGE_URL, articleItemModel.getUrlToImage());
-        contentValue.put(DatabaseHelper.TIME_STAMP, articleItemModel.getTimeStamp());
+        contentValue.put(DatabaseHelper.TITLE, article.getTitle());
+        contentValue.put(DatabaseHelper.DESCRIPTION, article.getDescription());
+        contentValue.put(DatabaseHelper.AUTHOR, article.getAuthor());
+        contentValue.put(DatabaseHelper.CONTENT, article.getContent());
+        contentValue.put(DatabaseHelper.PUBLISHED_DATE, article.getPublishedAt());
+        contentValue.put(DatabaseHelper.IMAGE_URL, article.getUrlToImage());
+        contentValue.put(DatabaseHelper.UNIQUE_ID, article.getId());
         database.insert(DatabaseHelper.TABLE_NAME, null, contentValue);
     }
 
@@ -61,7 +60,7 @@ public class DBManager {
     public Cursor fetch() {
         String[] columns = new String[]{DatabaseHelper._ARTICLE_ID, DatabaseHelper.TITLE, DatabaseHelper.DESCRIPTION,
                 DatabaseHelper.AUTHOR, DatabaseHelper.CONTENT, DatabaseHelper.PUBLISHED_DATE, DatabaseHelper.IMAGE_URL,
-                DatabaseHelper.TIME_STAMP};
+                DatabaseHelper.UNIQUE_ID};
         Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();

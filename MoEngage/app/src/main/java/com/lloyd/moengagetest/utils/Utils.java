@@ -18,6 +18,7 @@ import com.lloyd.moengagetest.activities.HomeScreenActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public final class Utils {
 
@@ -76,5 +77,9 @@ public final class Utils {
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(1, notificationBuilder.build());
         }
+    }
+
+    public static String generateUIID() {
+        return UUID.randomUUID().toString();
     }
 }

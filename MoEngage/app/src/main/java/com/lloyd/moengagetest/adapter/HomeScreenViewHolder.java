@@ -2,7 +2,6 @@ package com.lloyd.moengagetest.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +25,7 @@ class HomeScreenViewHolder extends RecyclerView.ViewHolder {
     private DownloadArticleListener downloadArticleListener;
     private TitleClickedListener titleClickedListener;
 
-    HomeScreenViewHolder(@NonNull View itemView, DownloadArticleListener downloadArticleListener, TitleClickedListener titleClickedListener) {
+    HomeScreenViewHolder(@NonNull View itemView, @NonNull DownloadArticleListener downloadArticleListener, @NonNull TitleClickedListener titleClickedListener) {
         super(itemView);
         this.downloadArticleListener = downloadArticleListener;
         this.titleClickedListener = titleClickedListener;
@@ -42,15 +41,11 @@ class HomeScreenViewHolder extends RecyclerView.ViewHolder {
         mTvUpdatedAt = itemView.findViewById(R.id.tv_updated_time);
         mIvDownloadArticle = itemView.findViewById(R.id.iv_download_article);
         mIvDownloadArticle.setOnClickListener(view -> {
-            if (downloadArticleListener != null) {
-                downloadArticleListener.onDownloadArticleClicked(getAdapterPosition(), articleItemModel);
-            }
+            downloadArticleListener.onDownloadArticleClicked(getAdapterPosition(), articleItemModel);
         });
 
         mTvTitle.setOnClickListener(view -> {
-            if (titleClickedListener != null) {
-                titleClickedListener.onTitleClicked(getAdapterPosition(), articleItemModel);
-            }
+            titleClickedListener.onTitleClicked(getAdapterPosition(), articleItemModel);
         });
     }
 

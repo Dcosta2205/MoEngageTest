@@ -7,6 +7,7 @@ import com.lloyd.moengagetest.database.FetchArticlesFromDBTask;
 import com.lloyd.moengagetest.database.InsertArticlesToDBTask;
 import com.lloyd.moengagetest.interfaces.DatabaseFetchListener;
 import com.lloyd.moengagetest.interfaces.OnResponseParsedListener;
+import com.lloyd.moengagetest.models.Article;
 import com.lloyd.moengagetest.models.ArticleItemModel;
 import com.lloyd.moengagetest.network.FetchArticlesTask;
 import com.lloyd.moengagetest.network.NetworkResponseListener;
@@ -27,11 +28,11 @@ public class HomeScreenRepository implements NetworkResponseListener, DatabaseFe
     private Context context;
 
     public void callGetArticlesApi() {
-        fetchArticlesTask = new FetchArticlesTask(this);
+        fetchArticlesTask = new FetchArticlesTask(this, context);
         fetchArticlesTask.execute();
     }
 
-    public void insertArticlesIntoDatabase(ArticleItemModel model) {
+    public void insertArticlesIntoDatabase(Article model) {
         insertArticlesToDBTask = new InsertArticlesToDBTask(DBManager.getInstance(context));
         insertArticlesToDBTask.execute(model);
     }
@@ -51,9 +52,9 @@ public class HomeScreenRepository implements NetworkResponseListener, DatabaseFe
     }
 
     @Override
-    public void onSuccess(List<ArticleItemModel> responseBody) {
+    public void onSuccess(List<ArticleItemModel> responseBody, List<Article> articleList) {
         if (listener != null) {
-            listener.onDataReceived(responseBody);
+            listener.onDataReceived(responseBody, articleList);
         }
     }
 
@@ -65,7 +66,7 @@ public class HomeScreenRepository implements NetworkResponseListener, DatabaseFe
     }
 
     @Override
-    public void onDataFetched(List<ArticleItemModel> list) {
+    public void onDataFetched(List<Article> list) {
         if (listener != null) {
             listener.onDataFetchedFromDB(list);
         }

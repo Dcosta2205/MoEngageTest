@@ -1,5 +1,6 @@
 package com.lloyd.moengagetest.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.lloyd.moengagetest.models.Article;
@@ -23,12 +24,13 @@ import java.util.List;
 public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemModel>> {
     private List<Article> articleList;
     private List<ArticleItemModel> articleItemModelList;
-    private DataMapper dataMapper = new DataMapper();
     private NetworkResponseListener listener;
+    private Context mContext;
     private JsonResponseParser responseParser = new JsonResponseParser();
 
-    public FetchArticlesTask(NetworkResponseListener listener) {
+    public FetchArticlesTask(NetworkResponseListener listener, Context context) {
         this.listener = listener;
+        mContext = context;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
         /*
         Builds the data to display in the UI.
          */
-        articleItemModelList = dataMapper.buildData(articleList);
+        articleItemModelList = new DataMapper(mContext).buildData(articleList);
         return articleItemModelList;
     }
 
@@ -86,7 +88,7 @@ public class FetchArticlesTask extends AsyncTask<Void, Void, List<ArticleItemMod
         Post the data to the repository class to update viewmodel about the changes.
          */
         if (listener != null && list != null) {
-            listener.onSuccess(list);
+            listener.onSuccess(list, articleList);
         }
     }
 
