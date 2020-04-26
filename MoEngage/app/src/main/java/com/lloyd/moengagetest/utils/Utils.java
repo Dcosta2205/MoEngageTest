@@ -64,6 +64,7 @@ public final class Utils {
     public static void showNotification(String body, Context context) {
         NotificationCompat.Builder notificationBuilder = null;
         Intent action1Intent = new Intent(context, HomeScreenActivity.class);
+        action1Intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent activityPendingIntent = PendingIntent.getActivity(context, 0,
                 action1Intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder = new NotificationCompat.Builder(context, "PRIMARY_CHANNEL")

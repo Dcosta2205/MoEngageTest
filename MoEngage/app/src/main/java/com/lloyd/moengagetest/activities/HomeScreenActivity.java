@@ -69,6 +69,7 @@ public class HomeScreenActivity extends BaseActivity implements DownloadArticleL
         Notify recyclerview adapter about the change in articleList
          */
         homeScreenAdapter.updateData(articleList);
+        mRecyclerView.scrollToPosition(0);
         /*
         articleList size is 0 , then there are no articles
          */
