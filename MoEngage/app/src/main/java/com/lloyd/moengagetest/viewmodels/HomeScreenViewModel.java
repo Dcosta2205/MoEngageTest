@@ -75,6 +75,7 @@ public class HomeScreenViewModel extends ViewModel implements OnResponseParsedLi
     public void onDataReceived(List<ArticleItemModel> articleItemModelList, List<Article> articleList) {
         this.articleItemModelList = articleItemModelList;
         this.articleList = articleList;
+        Collections.sort(articleItemModelList, ascendingComparator);
         mutableLiveData.setValue(articleItemModelList);
     }
 
